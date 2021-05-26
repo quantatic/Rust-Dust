@@ -5,27 +5,27 @@ pub use world::World;
 
 use rand::prelude::*;
 use sdl2::event::Event;
+use sdl2::keyboard::Keycode;
 use sdl2::pixels::Color;
 use sdl2::rect::Rect;
-use sdl2::{keyboard::Keycode};
 
 use std::convert::TryFrom;
 use std::error::Error;
-use std::time::Duration;
 
-const WORLD_WIDTH: i32 = 60;
-const WORLD_HEIGHT: i32 = 60;
-const PIXEL_SIZE: i32 = 10;
+
+const WORLD_WIDTH: i32 = 150;
+const WORLD_HEIGHT: i32 = 150;
+const PIXEL_SIZE: i32 = 5;
 
 pub fn main() -> Result<(), Box<dyn Error>> {
-    let mut rng = thread_rng();
+    let _rng = thread_rng();
     let mut world = World::new(WORLD_WIDTH, WORLD_HEIGHT);
 
-    for _i in 0..800 {
+    /*for _ in 0..800 {
         let x = rng.gen_range(0..WORLD_WIDTH);
         let y = rng.gen_range(0..WORLD_HEIGHT);
         *world.get_element_mut(x, y) = Some(Element::Dust);
-    }
+    }*/
 
     let sdl_context = sdl2::init()?;
     let video_subsystem = sdl_context.video()?;
@@ -56,6 +56,9 @@ pub fn main() -> Result<(), Box<dyn Error>> {
                 _ => {}
             }
         }
+
+        *world.get_element_mut(100, 120) = Some(Element::Dust);
+        *world.get_element_mut(50, 45) = Some(Element::Dust);
 
         canvas.set_draw_color(Color::RGB(0, 0, 0));
         canvas.clear();
@@ -98,7 +101,7 @@ pub fn main() -> Result<(), Box<dyn Error>> {
         }
 
         canvas.present();
-        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 30));
+        //::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
 
         world.tick();
     }

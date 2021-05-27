@@ -1,7 +1,3 @@
-pub mod element;
-
-pub use element::Element;
-
 use std::convert::TryFrom;
 
 #[derive(Debug)]
@@ -9,6 +5,11 @@ pub struct World {
     elements: Vec<Option<Element>>, // access as world[y * width + x]
     width: i32,
     height: i32,
+}
+
+#[derive(Clone, Copy, Debug)]
+pub enum Element {
+    Dust,
 }
 
 impl World {

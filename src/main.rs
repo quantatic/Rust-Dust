@@ -109,8 +109,6 @@ pub fn main() -> Result<(), Box<dyn Error>> {
             - cursor_size
             - (((mouse_state.y() * 2) - (PIXEL_SIZE * (cursor_size - 1))) / (2 * PIXEL_SIZE));
 
-        println!("{}, {}", mouse_box_x_origin, mouse_box_y_origin);
-
         // If both are pressed, do nothing.
         if mouse_state.left() != mouse_state.right() {
             for delta_y in 0..cursor_size {
@@ -157,7 +155,7 @@ pub fn main() -> Result<(), Box<dyn Error>> {
         }
 
         canvas.present();
-        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 15));
+        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
 
         world.tick();
     }
